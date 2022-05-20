@@ -1,50 +1,35 @@
+import { useState, useEffect } from 'react';
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
+import { ThemeProvider } from 'styled-components';
+import NavBar from 'Components/NavBar';
+import Dashboard from 'Pages/Dashboard';
+import DashboardTable from '../Pages/Dashboard/Table/DashboardTable';
+import Home from '../Pages/Home';
+import Login from '../Pages/Login';
+import Settings from '../Pages/Settings';
+import LoginAdmin from '../Pages/LoginAdmin';
+import { mainTheme } from '../lib/Theme';
+
 import './App.css';
 
-const Hello = () => {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200px" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-};
-
 export default function App() {
+  const [theme, setTheme] = useState(mainTheme);
+  sessionStorage.setItem('theme', JSON.stringify(theme));
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          <Route index element={<Home setTheme={setTheme} />} />
+          <Route path="login" element={<Login />} />
+          <Route path="loginadmin" element={<LoginAdmin />} />
+          <Route path="settings" element={<Settings />}>
+            <Route index element={<Dashboard />} />
+            <Route path="table" element={<DashboardTable />} />
+            <Route path="*" element={<Dashboard />} />
+          </Route>
+          <Route path="*" element={<Home setTheme={setTheme} />} />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }

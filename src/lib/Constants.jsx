@@ -1,0 +1,10 @@
+export const HOST = 'http://localhost:8000';
+export const AUTH_URL = `${HOST}/auth`;
+export const LOGIN_URL = `${AUTH_URL}/login`;
+export const TOKEN_URL = `${AUTH_URL}/token`;
+export const TOKEN_URL_ADMIN = `${AUTH_URL}/tokenAdmin`;
+export const LOGOUT_URL = `${AUTH_URL}/logout`;
+export const REGISTER_URL = `${AUTH_URL}/register`;
+export const LOGIN_ADMIN = `${AUTH_URL}/loginadmin`;
+export const API_URL_USERS = `${HOST}/users`;
+export const API_URL_CHECKIN = `${HOST}/checkin`;
